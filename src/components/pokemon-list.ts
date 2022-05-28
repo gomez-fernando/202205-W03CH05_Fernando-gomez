@@ -1,35 +1,32 @@
 /* eslint-disable no-unused-vars */
 import { iComponent } from '../interfaces/component.js';
 import { PokemonModel } from '../models/Pokemon.js';
-// import { HttpStoreClass } from '../services/http.store.class.js';
+import { HttpStoreClass } from '../services/http.store.class.js';
 // import { StoreClass } from '../services/store.class.js';
+import {PokeService} from '../services/pokeService.js'
 
 // import { AddTask } from './add-task.js';
 import { Component } from './component.js';
 import { ItemPokemon } from './pokemon.js';
-import {POKEMONS} from '../models/data.js'
 
 export class PokemonList extends Component implements iComponent {
     pokemons!: Array<PokemonModel>;
-    // storeService: HttpStoreClass;
-    constructor(public selector: string) {
+    storeService: HttpStoreClass;
+    pokeArray: PokemonModel[];
+    constructor(public selector: string, pokeArray: Array<PokemonModel>) {
         super();
-        // this.storeService = new HttpStoreClass();
-        // this.storeService.getTasks().then((tasks) => {
-        //     this.tasks = tasks;
-        //     this.updateComponent();
-        // });
-        this.pokemons = POKEMONS;
+        this.storeService = new HttpStoreClass();
+        this.pokeArray = pokeArray;
 
         this.updateComponent();
     }
     createTemplate() {
+
         let html = `
         
         <ul class="list__container-list">`;
 
-        console.log(this.pokemons);
-        this.pokemons.forEach((item) => {
+        this.pokeArray.forEach((item) => {
             html += new ItemPokemon('', item).template;
         });
 
