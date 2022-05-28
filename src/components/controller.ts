@@ -1,6 +1,7 @@
 import { PokeService } from '../services/pokeService.js';
 import { PokemonList } from './pokemon-list.js';
 import { PokemonModel } from '../models/Pokemon.js';
+import { StoreClass } from '../services/store.class.js';
 
 
 export class Controller {
@@ -17,6 +18,8 @@ export class Controller {
             console.log(array);
             new PokemonList('.list__container-list', array)
         });
+
+       
 
     }
 }
