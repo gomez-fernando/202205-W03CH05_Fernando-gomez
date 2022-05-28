@@ -3,5 +3,6 @@ import { Controller } from '../components/controller.js';
 
 
 export function index() {
+    
     new Controller();
 }
