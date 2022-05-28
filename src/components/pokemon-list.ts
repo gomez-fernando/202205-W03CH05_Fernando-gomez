@@ -4,9 +4,11 @@ import { PokemonModel } from '../models/Pokemon.js';
 import { HttpStoreClass } from '../services/http.store.class.js';
 // import { StoreClass } from '../services/store.class.js';
 import {PokeService} from '../services/pokeService.js'
+import { StoreClass } from '../services/store.class.js';
 
 // import { AddTask } from './add-task.js';
 import { Component } from './component.js';
+import { Controller } from './controller.js';
 import { ItemPokemon } from './pokemon.js';
 
 export class PokemonList extends Component implements iComponent {
@@ -21,6 +23,8 @@ export class PokemonList extends Component implements iComponent {
         this.updateComponent();
     }
     createTemplate() {
+
+       
 
         let html = `
         
