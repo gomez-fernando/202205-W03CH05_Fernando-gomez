@@ -1,30 +1,24 @@
-// import { HttpStoreClass } from '../services/http.store.class.js';
-// import { StoreClass } from '../services/store.class.js';
+import { HttpStoreClass } from '../services/http.store.class.js';
 // import { AddTask } from './add-task.js';
 import { Component } from './component.js';
 import { ItemPokemon } from './pokemon.js';
-import { POKEMONS } from '../models/data.js';
 export class PokemonList extends Component {
     selector;
     pokemons;
-    // storeService: HttpStoreClass;
-    constructor(selector) {
+    storeService;
+    pokeArray;
+    constructor(selector, pokeArray) {
         super();
         this.selector = selector;
-        // this.storeService = new HttpStoreClass();
-        // this.storeService.getTasks().then((tasks) => {
-        //     this.tasks = tasks;
-        //     this.updateComponent();
-        // });
-        this.pokemons = POKEMONS;
+        this.storeService = new HttpStoreClass();
+        this.pokeArray = pokeArray;
         this.updateComponent();
     }
     createTemplate() {
         let html = `
         
         <ul class="list__container-list">`;
-        console.log(this.pokemons);
-        this.pokemons.forEach((item) => {
+        this.pokeArray.forEach((item) => {
             html += new ItemPokemon('', item).template;
         });
         html += `</ul>`;

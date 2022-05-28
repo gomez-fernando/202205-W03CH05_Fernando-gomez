@@ -6,11 +6,13 @@ export class ItemPokemon extends Component {
         this.item = item;
         this.template = this.createTemplate();
         this.render(selector);
+        this.item = item;
     }
     createTemplate() {
-        return `<li>
-            <h3>${this.item.id}</h3>
-            <h3>${this.item.name}</h3>
-            </li>`;
+        return `
+        <li>${this.item.id}</li>
+        <li>${this.item.name}</li>
+        <li><img src="${this.item.sprites.front_default}" alt="${this.item.name}'s image"></li>
+        `;
     }
 }
