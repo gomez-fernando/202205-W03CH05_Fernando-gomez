@@ -16,17 +16,15 @@ export class PokemonList extends Component implements iComponent {
     pokemons!: Array<PokemonModel>;
     storeService: HttpStoreClass;
     pokeArray: PokemonModel[];
-    // favorites;
+    favorites;
     constructor(public selector: string, pokeArray: Array<PokemonModel>) {
         super();
         this.storeService = new HttpStoreClass();
         this.pokeArray = pokeArray;
 
-        // this.favorites = FAVORITES;
+        this.favorites = JSON.parse(StoreClass.getFavorites());
 
         this.updateComponent();
-
-       
     }
     createTemplate() {
 
@@ -36,8 +34,8 @@ export class PokemonList extends Component implements iComponent {
         
         <ul class="list__container-list">`;
 
-        this.pokeArray.forEach((item) => {
-            html += new ItemPokemon('', item).template;
+        this.pokeArray.forEach((item, favorites) => {
+            html += new ItemPokemon('', item, this.favorites).template;
         });
 
         html += `</ul>`;
