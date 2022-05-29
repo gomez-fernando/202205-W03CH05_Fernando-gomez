@@ -1,8 +1,9 @@
+import { PokemonModel } from "../models/Pokemon";
 
 export class StoreClass {
-    static lastPokemon: string = 'lastPokemon'
-    // static lastPokemon: string;
-   
+    static lastPokemon: string = 'lastPokemon';
+    static favorites: string = 'favorites'
+
 
     static getLastPokemon(): string {
         return localStorage.getItem(StoreClass.lastPokemon)
@@ -15,7 +16,34 @@ export class StoreClass {
     }
   
 
-    // deleteTasks() {
-    //     localStorage.removeItem(this.store);
-    // }
+    static getFavorites(): string {
+        return localStorage.getItem(StoreClass.favorites)
+            ? <string>localStorage.getItem(StoreClass.favorites)
+            : '[]';
+    }
+
+    static setInitialFavorites(){
+        localStorage.setItem(StoreClass.favorites, '[]');
+    }
+
+    static setFavorites(item: number) {
+        let array = [];
+
+        let items: Array<number> ;
+        items = (JSON.parse(<string>StoreClass.getFavorites()))
+
+        if(!items.includes(item)){
+            array.push(...items)
+            array.push(item);
+            localStorage.setItem(StoreClass.favorites, JSON.stringify(array));
+            return true;
+        }else {
+            const newFavorites = items.filter(elem => elem !== item)
+            array = newFavorites;
+            localStorage.setItem(StoreClass.favorites, JSON.stringify(array));
+            return false;
+        }
+        
+        
+    }
 }

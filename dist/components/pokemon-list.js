@@ -1,4 +1,5 @@
 import { HttpStoreClass } from '../services/http.store.class.js';
+import { StoreClass } from '../services/store.class.js';
 // import { AddTask } from './add-task.js';
 import { Component } from './component.js';
 import { ItemPokemon } from './pokemon.js';
@@ -7,34 +8,32 @@ export class PokemonList extends Component {
     pokemons;
     storeService;
     pokeArray;
+    favorites;
     constructor(selector, pokeArray) {
         super();
         this.selector = selector;
         this.storeService = new HttpStoreClass();
         this.pokeArray = pokeArray;
+        this.favorites = JSON.parse(StoreClass.getFavorites());
         this.updateComponent();
     }
     createTemplate() {
         let html = `
         
         <ul class="list__container-list">`;
-        this.pokeArray.forEach((item) => {
-            html += new ItemPokemon('', item).template;
+        this.pokeArray.forEach((item, favorites) => {
+            html += new ItemPokemon('', item, this.favorites).template;
         });
         html += `</ul>`;
         return html;
     }
     manageComponent() {
-        // document
-        //     .querySelectorAll('.button')
-        //     .forEach((item) =>
-        //         item.addEventListener('click', this.handlerButton.bind(this))
-        //     );
-        // document
-        //     .querySelectorAll('[type=checkbox]')
-        //     .forEach((item) =>
-        //         item.addEventListener('change', this.handlerChange.bind(this))
-        //     );
+        document
+            .querySelectorAll('.add-fav img')
+            .forEach((item) => item.addEventListener('click', this.handlerButton.bind(this)));
+        document
+            .querySelectorAll('[type=checkbox]')
+            .forEach((item) => item.addEventListener('change', this.handlerChange.bind(this)));
     }
     updateComponent() {
         this.template = this.createTemplate();
@@ -43,28 +42,24 @@ export class PokemonList extends Component {
         // new AddTask('slot.addTask', this.addTask.bind(this));
     }
     handlerButton(ev) {
-        // const deletedId = (<HTMLElement>ev.target).dataset.id as string;
-        // this.storeService.deleteTask(deletedId).then((status) => {
-        //     if (status === 200) {
-        //         this.tasks = this.tasks.filter((item) => item.id !== deletedId);
-        //         this.updateComponent();
-        //     }
-        // });
+        const elem = ev.target;
+        console.log(typeof elem);
+        const favId = elem.dataset.id;
+        let result = false;
+        if (favId) {
+            result = StoreClass.setFavorites(+favId);
+        }
+        if (!!result) {
+            elem.innerHTML = 'favorito';
+            elem.src = './assets/favorite.png';
+            elem.setAttribute('alt', 'yellow star');
+        }
+        else {
+            elem.innerHTML = 'np favorito';
+            elem.src = './assets/no-favorite.png';
+            elem.setAttribute('alt', 'white star');
+        }
     }
     handlerChange(ev) {
-        // const changeId = (<HTMLElement>ev.target).dataset.id;
-        // console.log('change', changeId);
-        // const task = this.tasks.find(
-        //     (item) => item.id === changeId
-        // ) as TaskModel;
-        // task.isComplete = !task.isComplete;
-        // this.storeService.updateTask(task).then((task) => {
-        //     this.tasks = this.tasks.map((item) => ({
-        //         ...item,
-        //         isComplete:
-        //             item.id === changeId ? !item.isComplete : item.isComplete,
-        //     }));
-        //     this.updateComponent();
-        // });
     }
 }

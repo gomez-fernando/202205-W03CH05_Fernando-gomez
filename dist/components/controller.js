@@ -1,7 +1,9 @@
 import { PokeService } from '../services/pokeService.js';
 import { PokemonList } from './pokemon-list.js';
+// import { StoreClass } from '../services/store.class.js';
 export class Controller {
     start;
+    // handlerButton: Function;
     constructor(start = 1) {
         this.start = start;
         const promises = [];
@@ -10,7 +12,6 @@ export class Controller {
             promises.push(PokeService.getPokemon(i));
         }
         Promise.all(promises).then((array) => {
-            console.log(array);
             new PokemonList('.list__container-list', array);
         });
     }
