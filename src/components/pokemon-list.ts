@@ -13,22 +13,25 @@ import { FAVORITES } from '../models/data.js';
 import { ItemPokemon } from './pokemon.js';
 
 export class PokemonList extends Component implements iComponent {
-    pokemons!: Array<PokemonModel>;
+    favorites!: Array<PokemonModel>;
     storeService: HttpStoreClass;
     pokeArray: PokemonModel[];
-    favorites;
+    // favorites;
     constructor(public selector: string, pokeArray: Array<PokemonModel>) {
         super();
         this.storeService = new HttpStoreClass();
         this.pokeArray = pokeArray;
 
-        this.favorites = JSON.parse(StoreClass.getFavorites());
+        this.storeService.getPokemons().then((response) => {
+            this.favorites = response;
+            this.updateComponent();
+        });
 
-        this.updateComponent();
+        // this.updateComponent();
     }
     createTemplate() {
 
-       
+    //    console.log(this.favorites);
 
         let html = `
         
@@ -62,22 +65,46 @@ export class PokemonList extends Component implements iComponent {
     }
      handlerButton(ev: Event) {
         const elem: any = (<HTMLElement>ev.target)
-        console.log(typeof elem);
         const favId = elem.dataset.id;
 
-        let result = false;
-        if(favId){
-            result = StoreClass.setFavorites(+favId);
-        }
+         // console.log(this.favorites);
+         const ids = this.favorites.map(elem => elem.id);
+        //  alert(ids)
+        // ev.preventDefault()
+        //  if(ids.includes(+favId )){
+        //      console.log('es favorito');
+        //      alert('es favorito')
+        // ev.preventDefault()
 
-        if(!!result){
-            elem.innerHTML = 'favorito';
-            elem.src='./assets/favorite.png';
-            elem.setAttribute('alt', 'yellow star');
-        }else{
-            elem.innerHTML = 'np favorito';
+        //  }else{
+        //     console.log('no es favorito');
+
+        //      alert('no es fav')
+        // ev.preventDefault()
+
+        //  }
+
+        let result: any;
+        let promises = [];
+        
+        if(favId && ids.includes(+favId )){
+            alert('es favorito')
+
             elem.src='./assets/no-favorite.png'
             elem.setAttribute('alt', 'white star');
+
+            this.storeService.deletePokemon(favId)
+            
+            // result = Promise.all(promises).then((resp ) => {
+            //     console.log(resp);
+            // })
+        } else if(favId){
+            alert('no es favorito')
+
+            this.storeService.setPokemon(this.pokeArray[elem.dataset.id -1])
+
+            elem.src='./assets/favorite.png';
+            elem.setAttribute('alt', 'yellow star');
         }
 
     }

@@ -10,7 +10,7 @@ import { StoreClass } from '../services/store.class.js';
 // import { AddTask } from './add-task.js';
 import { Component } from './component.js';
 import { FAVORITES } from '../models/data.js';
-import { ItemPokemon } from './pokemon.js';
+import { MyItemPokemon } from './mi-pokemon.js';
 
 export class MisPokemonsList extends Component implements iComponent {
     pokemons!: Array<PokemonModel>;
@@ -33,8 +33,8 @@ export class MisPokemonsList extends Component implements iComponent {
         
         <ul class="list__container-list">`;
 
-        this.pokeArray.forEach((item, favorites) => {
-            html += new ItemPokemon('', item, this.favorites).template;
+        this.pokeArray.forEach((item) => {
+            html += new MyItemPokemon('', item, this.favorites).template;
         });
 
         html += `</ul>`;
@@ -65,9 +65,9 @@ export class MisPokemonsList extends Component implements iComponent {
         const favId = elem.dataset.id;
 
         let result = false;
-        if(favId){
-            result = StoreClass.setFavorites(+favId);
-        }
+        // if(favId){
+        //     result = HttpStoreClass.setPokemon(+favId);
+        // }
 
         if(!!result){
             elem.innerHTML = 'favorito';

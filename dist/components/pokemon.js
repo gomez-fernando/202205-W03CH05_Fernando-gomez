@@ -11,12 +11,14 @@ export class ItemPokemon extends Component {
         this.item = item;
     }
     createTemplate() {
+        // console.log(this.favorites);
+        const ids = this.favorites.map(elem => elem.id);
         return `
         <li>
             <div>${this.item.id}</div>
             <div>${this.item.name}</div>
             <div><img src="${this.item.sprites.front_default}" alt="${this.item.name}'s image"></div>
-            <div><i class="add-fav" ><img data-id="${this.item.id}" src="${this.favorites.includes(+this.item.id) ? './assets/favorite.png' : './assets/no-favorite.png'}" alt="star"></i></div>
+            <div><i class="add-fav" ><img data-id="${this.item.id}" src="${ids.includes(this.item.id) ? './assets/favorite.png' : './assets/no-favorite.png'}" alt="star"></i></div>
         </li>
         `;
     }

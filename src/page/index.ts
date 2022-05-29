@@ -5,12 +5,12 @@ import { StoreClass } from '../services/store.class.js';
 
 export function index() {
     StoreClass.setLastPokemon('10');
-    new Controller();
+        new Controller();
 
-    const leftButton = document.querySelector('#left');
-    
+        const leftButton = document.querySelector('#left');
+        
         const rightButton = document.querySelector('#right');
-    
+
         leftButton?.addEventListener('click', () => {
             let index = +StoreClass.getLastPokemon();
             if(index >= 11){
@@ -26,5 +26,4 @@ export function index() {
                 new Controller(index + 1)
             }
         })
-
 }
