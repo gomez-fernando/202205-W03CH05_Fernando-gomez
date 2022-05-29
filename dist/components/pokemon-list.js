@@ -29,7 +29,7 @@ export class PokemonList extends Component {
     }
     manageComponent() {
         document
-            .querySelectorAll('.add-fav')
+            .querySelectorAll('.add-fav img')
             .forEach((item) => item.addEventListener('click', this.handlerButton.bind(this)));
         document
             .querySelectorAll('[type=checkbox]')
@@ -43,35 +43,20 @@ export class PokemonList extends Component {
     }
     handlerButton(ev) {
         const elem = ev.target;
+        console.log(typeof elem);
         const favId = elem.dataset.id;
-        // console.log(favId);
         let result = false;
         if (favId) {
             result = StoreClass.setFavorites(+favId);
         }
-        console.log('result: ' + result);
-        (!!result) ? elem.innerHTML = 'favorito' : elem.innerHTML = 'np favorito';
-        // this.storeService.deleteTask(deletedId).then((status) => {
-        //     if (status === 200) {
-        //         this.tasks = this.tasks.filter((item) => item.id !== deletedId);
-        //         this.updateComponent();
-        //     }
-        // });
+        if (!!result) {
+            elem.src = './assets/favorite.png';
+            elem.setAttribute('alt', 'yellow star');
+        }
+        else {
+            elem.src = './assets/no-favorite.png';
+            elem.setAttribute('alt', 'white star');
+        }
     }
-    handlerChange(ev) {
-        // const changeId = (<HTMLElement>ev.target).dataset.id;
-        // console.log('change', changeId);
-        // const task = this.tasks.find(
-        //     (item) => item.id === changeId
-        // ) as TaskModel;
-        // task.isComplete = !task.isComplete;
-        // this.storeService.updateTask(task).then((task) => {
-        //     this.tasks = this.tasks.map((item) => ({
-        //         ...item,
-        //         isComplete:
-        //             item.id === changeId ? !item.isComplete : item.isComplete,
-        //     }));
-        //     this.updateComponent();
-        // });
-    }
+
 }

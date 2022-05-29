@@ -32,12 +32,4 @@ export function index() {
             }
         })
 
-        // setTimeout(() => {
-        //     let estrellas = document.querySelectorAll('.add-fav');
-        //     console.log(estrellas);
-        // }, 1000);
-
-        
-
-       
 }

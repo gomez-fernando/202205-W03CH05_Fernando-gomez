@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-unused-vars */
 import { iComponent } from '../interfaces/component.js';
 import { PokemonModel } from '../models/Pokemon.js';
@@ -44,7 +45,7 @@ export class PokemonList extends Component implements iComponent {
     }
     private manageComponent() {
         document
-            .querySelectorAll('.add-fav')
+            .querySelectorAll('.add-fav img')
             .forEach((item) =>
                 item.addEventListener('click', this.handlerButton.bind(this))
             );
@@ -62,47 +63,29 @@ export class PokemonList extends Component implements iComponent {
         // new AddTask('slot.addTask', this.addTask.bind(this));
     }
      handlerButton(ev: Event) {
-        const elem = (<HTMLElement>ev.target)
+        const elem: any = (<HTMLElement>ev.target)
+        console.log(typeof elem);
         const favId = elem.dataset.id;
 
-        // console.log(favId);
         let result = false;
         if(favId){
             result = StoreClass.setFavorites(+favId);
         }
-        console.log('result: ' + result);
-        (!!result) ? elem.innerHTML = 'favorito' : elem.innerHTML = 'np favorito'
 
-        // this.storeService.deleteTask(deletedId).then((status) => {
-        //     if (status === 200) {
-        //         this.tasks = this.tasks.filter((item) => item.id !== deletedId);
-        //         this.updateComponent();
-        //     }
-        // });
+        if(!!result){
+            elem.innerHTML = 'favorito';
+            elem.src='./assets/favorite.png';
+            elem.setAttribute('alt', 'yellow star');
+        }else{
+            elem.innerHTML = 'np favorito';
+            elem.src='./assets/no-favorite.png'
+            elem.setAttribute('alt', 'white star');
+        }
+
     }
 
     private handlerChange(ev: Event) {
-        // const changeId = (<HTMLElement>ev.target).dataset.id;
-        // console.log('change', changeId);
-        // const task = this.tasks.find(
-        //     (item) => item.id === changeId
-        // ) as TaskModel;
-        // task.isComplete = !task.isComplete;
-        // this.storeService.updateTask(task).then((task) => {
-        //     this.tasks = this.tasks.map((item) => ({
-        //         ...item,
-        //         isComplete:
-        //             item.id === changeId ? !item.isComplete : item.isComplete,
-        //     }));
-        //     this.updateComponent();
-        // });
+       
     }
 
-    // public addTask(task: TaskModel) {
-    //     // this.tasks = [...this.tasks, task];
-    //     this.storeService.setTask(task).then((task) => {
-    //         this.tasks.push(task);
-    //         this.updateComponent();
-    //     });
-    // }
 }

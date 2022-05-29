@@ -24,8 +24,4 @@ export function index() {
             new Controller(index + 1);
         }
     });
-    // setTimeout(() => {
-    //     let estrellas = document.querySelectorAll('.add-fav');
-    //     console.log(estrellas);
-    // }, 1000);
 }

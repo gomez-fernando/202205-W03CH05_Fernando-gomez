@@ -14,8 +14,7 @@ export class ItemPokemon extends Component {
             <div>${this.item.id}</div>
             <div>${this.item.name}</div>
             <div><img src="${this.item.sprites.front_default}" alt="${this.item.name}'s image"></div>
-            <div><i class="add-fav" data-id="${this.item.id}">🌟</i></div>
-            
+            <div><i class="add-fav" ><img data-id="${this.item.id}" src="./assets/no-favorite.png" alt="white star"></i></div>
         </li>
         `;
     }
