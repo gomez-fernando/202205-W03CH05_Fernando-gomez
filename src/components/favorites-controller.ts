@@ -1,22 +1,21 @@
-// import { Footer } from '../components/footer.js';
-import { MisPokemonsList } from '../components/mis-pokemons-list.js';
+import { PokeService } from '../services/pokeService.js';
+import { PokemonList } from './pokemon-list.js';
 import { PokemonModel } from '../models/Pokemon.js';
 import { HttpStoreClass } from '../services/http.store.class.js';
+import { MisPokemonsList } from './mis-pokemons-list.js';
+export class FavoritesController {
+    constructor(public start: number = 0) {
 
-export function misPokemon() {
-    
         const promises: Array<Promise<PokemonModel>> = [];
-        // const start: number = 1;
-        // for (let i = start; i < start + 10; i++) {      TODO cambiar esto a 10 otra vez
-            // for (let i = start; i <= start; i++) {
+        this.start = start;
+        // for (let i = this.start; i < this.start + 10; i++) {
             promises.push(HttpStoreClass.getPokemons());
-            // console.log(pokeArray);
         // }
         
         Promise.all(promises).then((array) => {
+            console.log(array);
             new MisPokemonsList('.list__container-list', array);
         });
-
+    }
+   
 }
-
-

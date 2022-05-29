@@ -5,11 +5,6 @@ import { StoreClass } from '../services/store.class.js';
 
 export function index() {
     StoreClass.setLastPokemon('10');
-    // console.log(StoreClass.getFavorites());
-    // if(StoreClass.getFavorites() === '[]'){
-    //     StoreClass.setInitialFavorites();
-    // }
-
     new Controller();
 
     const leftButton = document.querySelector('#left');
