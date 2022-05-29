@@ -62,10 +62,17 @@ export class PokemonList extends Component implements iComponent {
         // new AddTask('slot.addTask', this.addTask.bind(this));
     }
      handlerButton(ev: Event) {
-        const favId = (<HTMLElement>ev.target).dataset.id;
+        const elem = (<HTMLElement>ev.target)
+        const favId = elem.dataset.id;
 
         // console.log(favId);
-        (favId) && StoreClass.setFavorites(+favId);
+        let result = false;
+        if(favId){
+            result = StoreClass.setFavorites(+favId);
+        }
+        console.log('result: ' + result);
+        (!!result) ? elem.innerHTML = 'favorito' : elem.innerHTML = 'np favorito'
+
         // this.storeService.deleteTask(deletedId).then((status) => {
         //     if (status === 200) {
         //         this.tasks = this.tasks.filter((item) => item.id !== deletedId);
