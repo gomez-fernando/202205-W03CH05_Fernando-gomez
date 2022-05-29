@@ -1,4 +1,5 @@
 import { HttpStoreClass } from '../services/http.store.class.js';
+import { StoreClass } from '../services/store.class.js';
 // import { AddTask } from './add-task.js';
 import { Component } from './component.js';
 import { ItemPokemon } from './pokemon.js';
@@ -7,11 +8,13 @@ export class PokemonList extends Component {
     pokemons;
     storeService;
     pokeArray;
+    // favorites;
     constructor(selector, pokeArray) {
         super();
         this.selector = selector;
         this.storeService = new HttpStoreClass();
         this.pokeArray = pokeArray;
+        // this.favorites = FAVORITES;
         this.updateComponent();
     }
     createTemplate() {
@@ -25,16 +28,12 @@ export class PokemonList extends Component {
         return html;
     }
     manageComponent() {
-        // document
-        //     .querySelectorAll('.button')
-        //     .forEach((item) =>
-        //         item.addEventListener('click', this.handlerButton.bind(this))
-        //     );
-        // document
-        //     .querySelectorAll('[type=checkbox]')
-        //     .forEach((item) =>
-        //         item.addEventListener('change', this.handlerChange.bind(this))
-        //     );
+        document
+            .querySelectorAll('.add-fav')
+            .forEach((item) => item.addEventListener('click', this.handlerButton.bind(this)));
+        document
+            .querySelectorAll('[type=checkbox]')
+            .forEach((item) => item.addEventListener('change', this.handlerChange.bind(this)));
     }
     updateComponent() {
         this.template = this.createTemplate();
@@ -43,7 +42,9 @@ export class PokemonList extends Component {
         // new AddTask('slot.addTask', this.addTask.bind(this));
     }
     handlerButton(ev) {
-        // const deletedId = (<HTMLElement>ev.target).dataset.id as string;
+        const favId = ev.target.dataset.id;
+        // console.log(favId);
+        (favId) && StoreClass.setFavorites(+favId);
         // this.storeService.deleteTask(deletedId).then((status) => {
         //     if (status === 200) {
         //         this.tasks = this.tasks.filter((item) => item.id !== deletedId);

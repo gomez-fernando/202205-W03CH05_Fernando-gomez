@@ -10,9 +10,13 @@ export class ItemPokemon extends Component {
     }
     createTemplate() {
         return `
-        <li>${this.item.id}</li>
-        <li>${this.item.name}</li>
-        <li><img src="${this.item.sprites.front_default}" alt="${this.item.name}'s image"></li>
+        <li>
+            <div>${this.item.id}</div>
+            <div>${this.item.name}</div>
+            <div><img src="${this.item.sprites.front_default}" alt="${this.item.name}'s image"></div>
+            <div><i class="add-fav" data-id="${this.item.id}">🌟</i></div>
+            
+        </li>
         `;
     }
 }

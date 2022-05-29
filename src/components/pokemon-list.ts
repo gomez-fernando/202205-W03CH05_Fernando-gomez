@@ -8,19 +8,24 @@ import { StoreClass } from '../services/store.class.js';
 
 // import { AddTask } from './add-task.js';
 import { Component } from './component.js';
-import { Controller } from './controller.js';
+import { FAVORITES } from '../models/data.js';
 import { ItemPokemon } from './pokemon.js';
 
 export class PokemonList extends Component implements iComponent {
     pokemons!: Array<PokemonModel>;
     storeService: HttpStoreClass;
     pokeArray: PokemonModel[];
+    // favorites;
     constructor(public selector: string, pokeArray: Array<PokemonModel>) {
         super();
         this.storeService = new HttpStoreClass();
         this.pokeArray = pokeArray;
 
+        // this.favorites = FAVORITES;
+
         this.updateComponent();
+
+       
     }
     createTemplate() {
 
@@ -38,26 +43,29 @@ export class PokemonList extends Component implements iComponent {
         return html;
     }
     private manageComponent() {
-        // document
-        //     .querySelectorAll('.button')
-        //     .forEach((item) =>
-        //         item.addEventListener('click', this.handlerButton.bind(this))
-        //     );
-        // document
-        //     .querySelectorAll('[type=checkbox]')
-        //     .forEach((item) =>
-        //         item.addEventListener('change', this.handlerChange.bind(this))
-        //     );
+        document
+            .querySelectorAll('.add-fav')
+            .forEach((item) =>
+                item.addEventListener('click', this.handlerButton.bind(this))
+            );
+        document
+            .querySelectorAll('[type=checkbox]')
+            .forEach((item) =>
+                item.addEventListener('change', this.handlerChange.bind(this))
+            );
     }
-    private updateComponent() {
+     updateComponent() {
         this.template = this.createTemplate();
         this.render(this.selector);
         this.manageComponent();
 
         // new AddTask('slot.addTask', this.addTask.bind(this));
     }
-    private handlerButton(ev: Event) {
-        // const deletedId = (<HTMLElement>ev.target).dataset.id as string;
+     handlerButton(ev: Event) {
+        const favId = (<HTMLElement>ev.target).dataset.id;
+
+        // console.log(favId);
+        (favId) && StoreClass.setFavorites(+favId);
         // this.storeService.deleteTask(deletedId).then((status) => {
         //     if (status === 200) {
         //         this.tasks = this.tasks.filter((item) => item.id !== deletedId);

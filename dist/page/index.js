@@ -3,6 +3,10 @@ import { StoreClass } from '../services/store.class.js';
 // import { PokemonList } from '../components/pokemon-list.js';
 export function index() {
     StoreClass.setLastPokemon('10');
+    // console.log(StoreClass.getFavorites());
+    // if(StoreClass.getFavorites() === '[]'){
+    //     StoreClass.setInitialFavorites();
+    // }
     new Controller();
     const leftButton = document.querySelector('#left');
     const rightButton = document.querySelector('#right');
@@ -20,4 +24,8 @@ export function index() {
             new Controller(index + 1);
         }
     });
+    // setTimeout(() => {
+    //     let estrellas = document.querySelectorAll('.add-fav');
+    //     console.log(estrellas);
+    // }, 1000);
 }
